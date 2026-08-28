@@ -7,449 +7,379 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Play Save The Sleeping Turtle</title>
-
-<meta name="description"
-content="Play a mini challenge from Save The Sleeping Turtle. Protect the turtle from the angry bees!">
+<title>Save The Sleeping Turtle - Play Now</title>
 
 <style>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    min-height: 100vh;
-    background: #10242b;
-    font-family: Arial, sans-serif;
-    color: white;
-    overflow-x: hidden;
+body{
+    min-height:100vh;
+    background:#10242b;
+    font-family:Arial,sans-serif;
+    color:white;
+    overflow-x:hidden;
 }
 
-/* HEADER */
-
-.header {
-    text-align: center;
-    padding: 20px 15px 10px;
+.header{
+    text-align:center;
+    padding:25px 15px 15px;
 }
 
-.logo {
-    max-width: 260px;
-    width: 80%;
-    height: auto;
+.header h1{
+    font-size:clamp(30px,6vw,48px);
+    margin-bottom:10px;
 }
 
-.header h1 {
-    font-size: 28px;
-    margin-top: 8px;
+.header p{
+    font-size:clamp(17px,3vw,24px);
+    color:#dcecff;
 }
 
-.header p {
-    margin-top: 8px;
-    font-size: 17px;
-    color: #d9f4ff;
+.gameWrapper{
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+    padding:10px;
 }
 
-
-/* GAME CONTAINER */
-
-.gameWrapper {
-    width: 100%;
-    max-width: 700px;
-    margin: 15px auto;
-    padding: 12px;
-}
-
-.gameBox {
-    position: relative;
-    width: 100%;
-    height: 500px;
-
-    background-image:
-        linear-gradient(
-            rgba(0, 0, 0, 0.15),
-            rgba(0, 0, 0, 0.25)
-        ),
-        url("images/beach.png");
-
-    background-size: cover;
-    background-position: center;
-
-    border-radius: 22px;
-
-    overflow: hidden;
-
-    border: 4px solid rgba(255,255,255,0.25);
-
-    touch-action: none;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.5);
-}
-
-
-/* TURTLE */
-
-.turtle {
-    position: absolute;
-
-    width: 130px;
-
-    left: 50%;
-
-    bottom: 45px;
-
-    transform: translateX(-50%);
-
-    user-select: none;
-
-    pointer-events: none;
-
-    z-index: 3;
-
-    filter:
-        drop-shadow(
-            0 8px 5px rgba(0,0,0,0.4)
-        );
-}
-
-
-/* BEE */
-
-.bee {
-    position: absolute;
-
-    width: 70px;
-
-    top: 45px;
-
-    left: 40px;
-
-    user-select: none;
-
-    pointer-events: none;
-
-    z-index: 4;
-
-    filter:
-        drop-shadow(
-            0 5px 4px rgba(0,0,0,0.4)
-        );
-}
-
-
-/* DRAWING CANVAS */
-
-#drawCanvas {
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    z-index: 10;
-
-    cursor: crosshair;
-
-}
-
-
-/* TOP UI */
-
-.gameUI {
-
-    position: absolute;
-
-    top: 15px;
-
-    left: 0;
-
-    width: 100%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 0 18px;
-
-    z-index: 20;
-
-    pointer-events: none;
-
-}
-
-.timer {
-
-    background: rgba(0,0,0,0.55);
-
-    padding: 9px 15px;
-
-    border-radius: 20px;
-
-    font-size: 20px;
-
-    font-weight: bold;
-
-}
-
-.message {
-
-    position: absolute;
-
-    top: 70px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 90%;
-
-    text-align: center;
-
-    font-size: 20px;
-
-    font-weight: bold;
-
-    color: white;
-
-    text-shadow:
-        2px 2px 4px rgba(0,0,0,0.8);
-
-    z-index: 20;
-
-    pointer-events: none;
-
-}
-
-
-/* START SCREEN */
-
-.startScreen {
-
-    position: absolute;
-
-    inset: 0;
+.gameBox{
+    position:relative;
+    width:100%;
+    height:min(75vh,650px);
+    min-height:500px;
 
     background:
-        rgba(0,0,0,0.45);
+    linear-gradient(
+        rgba(0,0,0,.12),
+        rgba(0,0,0,.28)
+    ),
+    url("images/beach.png");
 
-    display: flex;
+    background-size:cover;
+    background-position:center;
 
-    flex-direction: column;
+    border-radius:28px;
+    overflow:hidden;
 
-    align-items: center;
+    border:5px solid rgba(255,255,255,.3);
 
-    justify-content: center;
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.55);
 
-    z-index: 30;
-
-    text-align: center;
-
-    padding: 25px;
-
+    touch-action:none;
 }
 
-.startScreen h2 {
 
-    font-size: 34px;
+/* =========================
+   TOP UI
+========================= */
 
-    margin-bottom: 15px;
+.gameUI{
+    position:absolute;
+    top:15px;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding:0 18px;
+    z-index:50;
+    pointer-events:none;
+}
+
+.timer,
+.beeCounter{
+    background:rgba(0,0,0,.65);
+    padding:10px 18px;
+    border-radius:25px;
+    font-size:20px;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,.4);
+}
+
+.message{
+    position:absolute;
+    top:80px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+
+    text-align:center;
+
+    font-size:clamp(18px,3vw,28px);
+    font-weight:bold;
 
     text-shadow:
-        2px 3px 5px rgba(0,0,0,0.7);
+    2px 3px 5px black;
 
-}
-
-.startScreen p {
-
-    font-size: 18px;
-
-    max-width: 450px;
-
-    line-height: 1.5;
-
-}
-
-.playButton {
-
-    margin-top: 25px;
-
-    border: none;
-
-    border-radius: 50px;
-
-    padding: 16px 45px;
-
-    font-size: 22px;
-
-    font-weight: bold;
-
-    color: white;
-
-    background: #31b96f;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 6px 0 #16834a;
-
-    transition: 0.15s;
-
-}
-
-.playButton:active {
-
-    transform: translateY(4px);
-
-    box-shadow:
-        0 2px 0 #16834a;
-
+    z-index:40;
+    pointer-events:none;
 }
 
 
-/* RESULT SCREEN */
+/* =========================
+   TURTLE
+========================= */
 
-.resultScreen {
+.turtle{
+    position:absolute;
 
-    position: absolute;
+    width:150px;
+    max-width:24%;
 
-    inset: 0;
+    left:50%;
+    bottom:35px;
+
+    transform:translateX(-50%);
+
+    z-index:15;
+
+    pointer-events:none;
+    user-select:none;
+
+    filter:
+    drop-shadow(
+        0 8px 7px rgba(0,0,0,.55)
+    );
+}
+
+
+/* =========================
+   BEES
+========================= */
+
+.bee{
+    position:absolute;
+
+    width:58px;
+
+    z-index:20;
+
+    pointer-events:none;
+    user-select:none;
+
+    filter:
+    drop-shadow(
+        0 5px 5px rgba(0,0,0,.55)
+    );
+
+    transition:transform .05s linear;
+}
+
+
+/* =========================
+   CANVAS
+========================= */
+
+#drawCanvas{
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:100%;
+
+    z-index:30;
+
+    cursor:crosshair;
+}
+
+
+/* =========================
+   START SCREEN
+========================= */
+
+.startScreen{
+    position:absolute;
+    inset:0;
 
     background:
-        rgba(0,0,0,0.72);
+    linear-gradient(
+        rgba(0,0,0,.4),
+        rgba(0,0,0,.65)
+    );
 
-    display: none;
+    display:flex;
+    flex-direction:column;
 
-    flex-direction: column;
+    align-items:center;
+    justify-content:center;
 
-    align-items: center;
+    text-align:center;
 
-    justify-content: center;
+    padding:25px;
 
-    z-index: 40;
-
-    text-align: center;
-
-    padding: 25px;
-
+    z-index:100;
 }
 
-.resultScreen h2 {
+.startScreen h2{
+    font-size:clamp(34px,7vw,58px);
+    margin-bottom:18px;
 
-    font-size: 34px;
-
-    margin-bottom: 15px;
-
+    text-shadow:
+    3px 4px 8px black;
 }
 
-.resultScreen p {
+.startScreen p{
+    max-width:600px;
 
-    font-size: 18px;
+    font-size:clamp(18px,3vw,25px);
 
-    line-height: 1.5;
-
+    line-height:1.5;
 }
 
-.downloadButton {
+.playButton{
+    margin-top:30px;
 
-    display: inline-block;
+    border:none;
 
-    margin-top: 25px;
+    border-radius:60px;
 
-    padding: 17px 35px;
+    padding:18px 55px;
 
-    background: #35c56f;
+    font-size:25px;
+    font-weight:bold;
 
-    color: white;
+    color:white;
 
-    text-decoration: none;
+    background:#32bd70;
 
-    font-size: 21px;
-
-    font-weight: bold;
-
-    border-radius: 50px;
+    cursor:pointer;
 
     box-shadow:
-        0 6px 0 #167b43;
+    0 8px 0 #167b43,
+    0 12px 25px rgba(0,0,0,.4);
 
+    transition:.15s;
 }
 
-.downloadButton:active {
-
-    transform: translateY(4px);
+.playButton:active{
+    transform:translateY(6px);
 
     box-shadow:
-        0 2px 0 #167b43;
-
-}
-
-.retryButton {
-
-    margin-top: 20px;
-
-    background: transparent;
-
-    border: 2px solid white;
-
-    color: white;
-
-    border-radius: 30px;
-
-    padding: 10px 25px;
-
-    font-size: 17px;
-
-    cursor: pointer;
-
+    0 2px 0 #167b43;
 }
 
 
-/* MOBILE */
+/* =========================
+   RESULT SCREEN
+========================= */
 
-@media (max-width: 600px) {
+.resultScreen{
+    position:absolute;
+    inset:0;
 
-    .header h1 {
-        font-size: 23px;
+    background:
+    rgba(0,0,0,.78);
+
+    display:none;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:25px;
+
+    z-index:200;
+}
+
+.resultScreen h2{
+    font-size:clamp(35px,7vw,60px);
+    margin-bottom:18px;
+}
+
+.resultScreen p{
+    max-width:600px;
+
+    font-size:20px;
+    line-height:1.5;
+}
+
+.downloadButton{
+    display:inline-block;
+
+    margin-top:30px;
+
+    padding:19px 42px;
+
+    border-radius:60px;
+
+    background:#35c56f;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:22px;
+    font-weight:bold;
+
+    box-shadow:
+    0 7px 0 #167b43;
+}
+
+.downloadButton:active{
+    transform:translateY(5px);
+
+    box-shadow:
+    0 2px 0 #167b43;
+}
+
+.retryButton{
+    margin-top:22px;
+
+    background:transparent;
+
+    border:2px solid white;
+
+    color:white;
+
+    padding:12px 28px;
+
+    border-radius:40px;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+
+@media(max-width:600px){
+
+    .gameBox{
+        min-height:520px;
+        height:70vh;
+        border-radius:20px;
     }
 
-    .header p {
-        font-size: 15px;
+    .turtle{
+        width:125px;
+        max-width:35%;
     }
 
-    .gameWrapper {
-        padding: 7px;
+    .bee{
+        width:48px;
     }
 
-    .gameBox {
-        height: 520px;
-        border-radius: 15px;
+    .message{
+        top:75px;
     }
 
-    .turtle {
-        width: 110px;
+    .gameUI{
+        padding:0 10px;
     }
 
-    .bee {
-        width: 58px;
-    }
-
-    .message {
-        font-size: 17px;
-        top: 75px;
-    }
-
-    .startScreen h2 {
-        font-size: 28px;
+    .timer,
+    .beeCounter{
+        font-size:16px;
+        padding:8px 12px;
     }
 
 }
@@ -464,197 +394,147 @@ body {
 
 <div class="header">
 
-    <img
-    src="images/logo.png"
-    class="logo"
-    alt="Save The Sleeping Turtle">
+<h1>Save The Sleeping Turtle</h1>
 
-    <h1>Save The Sleeping Turtle</h1>
-
-    <p>Draw a line. Protect the turtle. Survive!</p>
+<p>Draw a line. Protect the turtle. Survive!</p>
 
 </div>
-
 
 
 <div class="gameWrapper">
 
-
 <div class="gameBox" id="gameBox">
 
 
-    <img
-    src="images/normal.png"
-    class="turtle"
-    id="turtle">
+<div class="gameUI">
+
+<div class="timer">
+⏱ <span id="timer">30</span>
+</div>
+
+<div class="beeCounter">
+🐝 <span id="beeCounter">8</span>
+</div>
+
+</div>
 
 
-    <img
-    src="images/bee.png"
-    class="bee"
-    id="bee">
+<div
+class="message"
+id="message">
+
+Draw ONE line to protect the turtle!
+
+</div>
 
 
-    <canvas id="drawCanvas"></canvas>
+<img
+src="images/bee2.png"
+class="turtle"
+id="turtle"
+alt="Sleeping Turtle">
 
 
-    <div class="gameUI">
-
-        <div class="timer" id="timer">
-
-            30
-
-        </div>
-
-    </div>
+<canvas id="drawCanvas"></canvas>
 
 
-    <div
-    class="message"
-    id="message">
+<div
+class="startScreen"
+id="startScreen">
 
-        Draw ONE line to protect the turtle!
+<h2>Protect The Turtle! 🐢</h2>
 
-    </div>
+<p>
 
+Eight angry bees are coming!
+Draw one strong protective line and survive for 30 seconds.
 
+</p>
 
-    <!-- START SCREEN -->
+<button
+class="playButton"
+onclick="startGame()">
 
-    <div
-    class="startScreen"
-    id="startScreen">
+PLAY NOW
 
-        <h2>Protect The Turtle! 🐢</h2>
+</button>
 
-        <p>
-
-            Draw a protective line before the angry bee reaches
-            the sleeping turtle.
-
-        </p>
+</div>
 
 
-        <button
-        class="playButton"
-        onclick="startGame()">
+<div
+class="resultScreen"
+id="resultScreen">
 
-            PLAY NOW
+<h2 id="resultTitle"></h2>
 
-        </button>
+<p id="resultText"></p>
 
-    </div>
+<a
+href="https://play.google.com/store/apps/details?id=com.kitcho85.savethesleepingturtle"
+class="downloadButton"
+target="_blank">
 
+DOWNLOAD FULL GAME
 
+</a>
 
-    <!-- RESULT SCREEN -->
+<button
+class="retryButton"
+onclick="restartGame()">
 
-    <div
-    class="resultScreen"
-    id="resultScreen">
+PLAY AGAIN
 
-        <h2 id="resultTitle">
-
-            Great Job! 🎉
-
-        </h2>
-
-
-        <p
-        id="resultText">
-
-        </p>
-
-
-        <a
-
-        href="https://play.google.com/store/apps/details?id=com.kitcho85.savethesleepingturtle"
-
-        class="downloadButton"
-
-        target="_blank">
-
-            DOWNLOAD FULL GAME
-
-        </a>
-
-
-        <button
-        class="retryButton"
-        onclick="restartGame()">
-
-            PLAY AGAIN
-
-        </button>
-
-    </div>
-
+</button>
 
 </div>
 
 
 </div>
 
+</div>
 
 
 <script>
 
 
+const gameBox =
+document.getElementById("gameBox");
+
 const canvas =
 document.getElementById("drawCanvas");
-
 
 const ctx =
 canvas.getContext("2d");
 
-
-const gameBox =
-document.getElementById("gameBox");
-
-
-const bee =
-document.getElementById("bee");
-
-
 const turtle =
 document.getElementById("turtle");
-
 
 const timerElement =
 document.getElementById("timer");
 
+const beeCounter =
+document.getElementById("beeCounter");
+
+const message =
+document.getElementById("message");
 
 const startScreen =
 document.getElementById("startScreen");
 
-
 const resultScreen =
 document.getElementById("resultScreen");
 
-
 const resultTitle =
 document.getElementById("resultTitle");
-
 
 const resultText =
 document.getElementById("resultText");
 
 
-const message =
-document.getElementById("message");
-
-
 let drawing = false;
-
 let lineDrawn = false;
-
 let gameRunning = false;
-
-let beeX = 40;
-
-let beeY = 45;
-
-let beeSpeed = 0;
 
 let timer = 30;
 
@@ -662,9 +542,144 @@ let timerInterval;
 
 let animationFrame;
 
+let bees = [];
+
+let linePoints = [];
 
 
-function resizeCanvas() {
+/* =========================
+   SOUND
+========================= */
+
+let audioContext;
+
+
+function initSound(){
+
+    if(!audioContext){
+
+        audioContext =
+        new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+    }
+
+}
+
+
+function playTone(
+frequency,
+duration,
+type = "sine",
+volume = 0.08
+){
+
+    if(!audioContext)
+    return;
+
+
+    const oscillator =
+    audioContext.createOscillator();
+
+    const gain =
+    audioContext.createGain();
+
+
+    oscillator.type =
+    type;
+
+    oscillator.frequency.value =
+    frequency;
+
+
+    gain.gain.setValueAtTime(
+        volume,
+        audioContext.currentTime
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioContext.currentTime + duration
+    );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime + duration
+    );
+
+}
+
+
+function beeSound(){
+
+    playTone(
+        180,
+        .08,
+        "sawtooth",
+        .025
+    );
+
+}
+
+
+function drawSound(){
+
+    playTone(
+        700,
+        .05,
+        "sine",
+        .035
+    );
+
+}
+
+
+function winSound(){
+
+    playTone(523,.12,"square",.07);
+
+    setTimeout(
+        ()=>playTone(659,.12,"square",.07),
+        120
+    );
+
+    setTimeout(
+        ()=>playTone(784,.25,"square",.08),
+        240
+    );
+
+}
+
+
+function loseSound(){
+
+    playTone(
+        150,
+        .4,
+        "sawtooth",
+        .1
+    );
+
+}
+
+
+/* =========================
+   CANVAS
+========================= */
+
+function resizeCanvas(){
 
     canvas.width =
     gameBox.clientWidth;
@@ -679,71 +694,321 @@ resizeCanvas();
 
 
 window.addEventListener(
-"resize",
-resizeCanvas
+    "resize",
+    resizeCanvas
 );
 
 
+/* =========================
+   CREATE BEES
+========================= */
 
-/* GET POSITION */
+function createBees(){
 
-
-function getPosition(e) {
-
-    const rect =
-    canvas.getBoundingClientRect();
-
-
-    let clientX;
-
-    let clientY;
+    document
+    .querySelectorAll(".bee")
+    .forEach(
+        bee => bee.remove()
+    );
 
 
-    if (e.touches) {
+    bees = [];
 
-        clientX =
-        e.touches[0].clientX;
 
-        clientY =
-        e.touches[0].clientY;
+    const positions = [
 
-    }
+        [8,15],
+        [25,8],
+        [50,12],
+        [72,7],
+        [88,18],
+        [12,35],
+        [80,38],
+        [50,28]
 
-    else {
+    ];
 
-        clientX =
-        e.clientX;
 
-        clientY =
-        e.clientY;
+    positions.forEach(
+    (position,index)=>{
 
-    }
 
+        const bee =
+        document.createElement("img");
+
+
+        bee.src =
+        "images/bee.png";
+
+
+        bee.className =
+        "bee";
+
+
+        gameBox.appendChild(bee);
+
+
+        const x =
+        gameBox.clientWidth *
+        position[0] / 100;
+
+
+        const y =
+        gameBox.clientHeight *
+        position[1] / 100;
+
+
+        bees.push({
+
+            element:bee,
+
+            x:x,
+
+            y:y,
+
+            vx:0,
+
+            vy:0,
+
+            speed:
+            0.35 +
+            Math.random() * 0.18,
+
+            angle:
+            Math.random() *
+            Math.PI * 2
+
+        });
+
+
+        updateBeePosition(
+            bees[index]
+        );
+
+
+    });
+
+}
+
+
+/* =========================
+   UPDATE BEE POSITION
+========================= */
+
+function updateBeePosition(bee){
+
+    bee.element.style.left =
+    bee.x + "px";
+
+    bee.element.style.top =
+    bee.y + "px";
+
+
+    const rotation =
+    Math.atan2(
+        bee.vy,
+        bee.vx
+    ) * 180 / Math.PI;
+
+
+    bee.element.style.transform =
+    "rotate(" +
+    (rotation + 90) +
+    "deg)";
+
+}
+
+
+/* =========================
+   GET TURTLE POSITION
+========================= */
+
+function getTurtlePosition(){
 
     return {
 
         x:
-        clientX - rect.left,
+        turtle.offsetLeft +
+        turtle.offsetWidth / 2,
 
         y:
-        clientY - rect.top
+        turtle.offsetTop +
+        turtle.offsetHeight / 2,
+
+        radius:
+        Math.min(
+            turtle.offsetWidth,
+            turtle.offsetHeight
+        ) * .30
 
     };
 
 }
 
 
+/* =========================
+   DISTANCE TO LINE SEGMENT
+========================= */
 
-/* START DRAW */
+function distanceToSegment(
+px,
+py,
+x1,
+y1,
+x2,
+y2
+){
+
+    const dx =
+    x2 - x1;
+
+    const dy =
+    y2 - y1;
 
 
-function startDraw(e) {
+    if(
+        dx === 0 &&
+        dy === 0
+    ){
 
-    if (!gameRunning)
-    return;
+        return Math.hypot(
+            px - x1,
+            py - y1
+        );
+
+    }
 
 
-    if (lineDrawn)
+    const t =
+    Math.max(
+        0,
+        Math.min(
+            1,
+            (
+                (px-x1)*dx +
+                (py-y1)*dy
+            ) /
+            (dx*dx + dy*dy)
+        )
+    );
+
+
+    const closestX =
+    x1 + t * dx;
+
+    const closestY =
+    y1 + t * dy;
+
+
+    return Math.hypot(
+        px - closestX,
+        py - closestY
+    );
+
+}
+
+
+/* =========================
+   LINE COLLISION
+========================= */
+
+function beeHitsLine(bee){
+
+    if(
+        linePoints.length < 2
+    )
+    return false;
+
+
+    const beeRadius =
+    bee.element.offsetWidth * .38;
+
+
+    for(
+        let i = 0;
+        i < linePoints.length - 1;
+        i++
+    ){
+
+        const p1 =
+        linePoints[i];
+
+        const p2 =
+        linePoints[i+1];
+
+
+        const distance =
+        distanceToSegment(
+
+            bee.x +
+            bee.element.offsetWidth / 2,
+
+            bee.y +
+            bee.element.offsetHeight / 2,
+
+            p1.x,
+            p1.y,
+
+            p2.x,
+            p2.y
+
+        );
+
+
+        if(
+            distance <
+            beeRadius + 9
+        ){
+
+            return true;
+
+        }
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================
+   DRAWING
+========================= */
+
+function getPosition(e){
+
+    const rect =
+    canvas.getBoundingClientRect();
+
+
+    const point =
+    e.touches ?
+    e.touches[0] :
+    e;
+
+
+    return {
+
+        x:
+        point.clientX -
+        rect.left,
+
+        y:
+        point.clientY -
+        rect.top
+
+    };
+
+}
+
+
+function startDraw(e){
+
+    if(
+        !gameRunning ||
+        lineDrawn
+    )
     return;
 
 
@@ -757,24 +1022,25 @@ function startDraw(e) {
     getPosition(e);
 
 
-    ctx.beginPath();
+    linePoints = [pos];
 
+
+    ctx.beginPath();
 
     ctx.moveTo(
         pos.x,
         pos.y
     );
 
+
+    drawSound();
+
 }
 
 
+function draw(e){
 
-/* DRAW */
-
-
-function draw(e) {
-
-    if (!drawing)
+    if(!drawing)
     return;
 
 
@@ -783,6 +1049,9 @@ function draw(e) {
 
     const pos =
     getPosition(e);
+
+
+    linePoints.push(pos);
 
 
     ctx.lineTo(
@@ -796,7 +1065,7 @@ function draw(e) {
 
 
     ctx.lineWidth =
-    10;
+    12;
 
 
     ctx.lineCap =
@@ -808,11 +1077,11 @@ function draw(e) {
 
 
     ctx.shadowColor =
-    "rgba(0,0,0,0.5)";
+    "rgba(0,0,0,.7)";
 
 
     ctx.shadowBlur =
-    5;
+    8;
 
 
     ctx.stroke();
@@ -821,83 +1090,78 @@ function draw(e) {
 }
 
 
+function stopDraw(){
 
-/* STOP DRAW */
-
-
-function stopDraw() {
-
-    if (!drawing)
+    if(!drawing)
     return;
 
 
     drawing = false;
 
-
     lineDrawn = true;
 
 
     message.innerHTML =
-    "Protect the turtle! Survive for 30 seconds!";
+    "The bees cannot cross your line! 🛡️";
 
+
+    drawSound();
 
 }
 
 
-
-/* MOUSE EVENTS */
-
+/* MOUSE */
 
 canvas.addEventListener(
-"mousedown",
-startDraw
+    "mousedown",
+    startDraw
 );
-
 
 canvas.addEventListener(
-"mousemove",
-draw
+    "mousemove",
+    draw
 );
-
 
 window.addEventListener(
-"mouseup",
-stopDraw
+    "mouseup",
+    stopDraw
 );
 
 
-
-/* TOUCH EVENTS */
-
+/* TOUCH */
 
 canvas.addEventListener(
-"touchstart",
-startDraw,
-{ passive:false }
+    "touchstart",
+    startDraw,
+    {passive:false}
 );
-
 
 canvas.addEventListener(
-"touchmove",
-draw,
-{ passive:false }
+    "touchmove",
+    draw,
+    {passive:false}
 );
-
 
 canvas.addEventListener(
-"touchend",
-stopDraw
+    "touchend",
+    stopDraw
 );
 
 
+/* =========================
+   START GAME
+========================= */
 
-/* START GAME */
+function startGame(){
 
-
-function startGame() {
+    initSound();
 
 
     startScreen.style.display =
+    "none";
+
+
+    resultScreen.style.display =
     "none";
 
 
@@ -905,24 +1169,20 @@ function startGame() {
     true;
 
 
+    drawing =
+    false;
+
+
     lineDrawn =
     false;
 
 
+    linePoints =
+    [];
+
+
     timer =
     30;
-
-
-    beeX =
-    40;
-
-
-    beeY =
-    45;
-
-
-    beeSpeed =
-    0.35;
 
 
     timerElement.innerHTML =
@@ -941,6 +1201,9 @@ function startGame() {
     );
 
 
+    createBees();
+
+
     clearInterval(
         timerInterval
     );
@@ -948,7 +1211,11 @@ function startGame() {
 
     timerInterval =
     setInterval(
-    function() {
+    ()=>{
+
+
+        if(!gameRunning)
+        return;
 
 
         timer--;
@@ -958,11 +1225,31 @@ function startGame() {
         timer;
 
 
-        if (timer <= 0) {
+        if(
+            timer === 20
+        ){
 
+            message.innerHTML =
+            "Keep protecting the turtle!";
+
+        }
+
+
+        if(
+            timer === 10
+        ){
+
+            message.innerHTML =
+            "Only 10 seconds left! 🔥";
+
+        }
+
+
+        if(
+            timer <= 0
+        ){
 
             winGame();
-
 
         }
 
@@ -972,107 +1259,300 @@ function startGame() {
     );
 
 
-    moveBee();
-
+    moveBees();
 
 }
 
 
+/* =========================
+   BEE AI
+========================= */
 
-/* BEE MOVEMENT */
+function moveBees(){
 
-
-function moveBee() {
-
-
-    if (!gameRunning)
+    if(!gameRunning)
     return;
 
 
-    const turtleRect =
-    turtle.getBoundingClientRect();
+    const turtlePos =
+    getTurtlePosition();
 
 
-    const gameRect =
-    gameBox.getBoundingClientRect();
+    bees.forEach(
+    bee=>{
 
 
-    const turtleX =
-    turtle.offsetLeft +
-    turtle.offsetWidth / 2;
+        const beeCenterX =
+        bee.x +
+        bee.element.offsetWidth / 2;
 
 
-    const turtleY =
-    turtle.offsetTop +
-    turtle.offsetHeight / 2;
+        const beeCenterY =
+        bee.y +
+        bee.element.offsetHeight / 2;
 
 
-    beeX +=
-    (turtleX - beeX) *
-    beeSpeed *
-    0.02;
+        let dx =
+        turtlePos.x -
+        beeCenterX;
 
 
-    beeY +=
-    (turtleY - beeY) *
-    beeSpeed *
-    0.02;
+        let dy =
+        turtlePos.y -
+        beeCenterY;
 
 
-    bee.style.left =
-    beeX + "px";
+        const distance =
+        Math.hypot(dx,dy);
 
 
-    bee.style.top =
-    beeY + "px";
+        if(distance > 0){
+
+            dx /= distance;
+
+            dy /= distance;
+
+        }
 
 
-    const dx =
-    turtleX - beeX;
+        /* Move toward turtle */
+
+        bee.vx +=
+        dx *
+        bee.speed *
+        .035;
 
 
-    const dy =
-    turtleY - beeY;
+        bee.vy +=
+        dy *
+        bee.speed *
+        .035;
 
 
-    const distance =
-    Math.sqrt(
-        dx * dx +
-        dy * dy
-    );
+        /* Small natural movement */
+
+        bee.vx +=
+        Math.sin(
+            Date.now()/350 +
+            bee.x
+        ) * .02;
 
 
-    if (
-        distance < 65
-    ) {
+        bee.vy +=
+        Math.cos(
+            Date.now()/300 +
+            bee.y
+        ) * .02;
 
 
-        loseGame();
+        /* Limit speed */
+
+        const velocity =
+        Math.hypot(
+            bee.vx,
+            bee.vy
+        );
 
 
-        return;
+        const maxSpeed =
+        2.0;
 
 
-    }
+        if(
+            velocity > maxSpeed
+        ){
+
+            bee.vx =
+            bee.vx /
+            velocity *
+            maxSpeed;
+
+
+            bee.vy =
+            bee.vy /
+            velocity *
+            maxSpeed;
+
+        }
+
+
+        const oldX =
+        bee.x;
+
+        const oldY =
+        bee.y;
+
+
+        bee.x +=
+        bee.vx;
+
+        bee.y +=
+        bee.vy;
+
+
+        /* =====================
+           LINE COLLISION
+        ===================== */
+
+        if(
+            beeHitsLine(bee)
+        ){
+
+            bee.x =
+            oldX;
+
+            bee.y =
+            oldY;
+
+
+            /*
+            Bounce away
+            */
+
+            bee.vx *= -1.4;
+
+            bee.vy *= -1.4;
+
+
+            /*
+            Add random side movement
+            */
+
+            bee.vx +=
+            (Math.random()-.5) *
+            1.8;
+
+
+            bee.vy +=
+            (Math.random()-.5) *
+            1.8;
+
+
+            beeSound();
+
+        }
+
+
+        /* =====================
+           WALLS
+        ===================== */
+
+        if(
+            bee.x < 0
+        ){
+
+            bee.x = 0;
+
+            bee.vx *= -1;
+
+        }
+
+
+        if(
+            bee.x >
+            gameBox.clientWidth -
+            bee.element.offsetWidth
+        ){
+
+            bee.x =
+            gameBox.clientWidth -
+            bee.element.offsetWidth;
+
+            bee.vx *= -1;
+
+        }
+
+
+        if(
+            bee.y < 100
+        ){
+
+            bee.y = 100;
+
+            bee.vy *= -1;
+
+        }
+
+
+        if(
+            bee.y >
+            gameBox.clientHeight -
+            bee.element.offsetHeight
+        ){
+
+            bee.y =
+            gameBox.clientHeight -
+            bee.element.offsetHeight;
+
+            bee.vy *= -1;
+
+        }
+
+
+        updateBeePosition(
+            bee
+        );
+
+
+        /* =====================
+           TURTLE COLLISION
+        ===================== */
+
+        const newCenterX =
+        bee.x +
+        bee.element.offsetWidth / 2;
+
+
+        const newCenterY =
+        bee.y +
+        bee.element.offsetHeight / 2;
+
+
+        const turtleDistance =
+        Math.hypot(
+
+            turtlePos.x -
+            newCenterX,
+
+            turtlePos.y -
+            newCenterY
+
+        );
+
+
+        if(
+            turtleDistance <
+            turtlePos.radius +
+            bee.element.offsetWidth * .28
+        ){
+
+            loseGame();
+
+        }
+
+
+    });
+
+
+    beeCounter.innerHTML =
+    bees.length;
 
 
     animationFrame =
     requestAnimationFrame(
-        moveBee
+        moveBees
     );
-
 
 }
 
 
+/* =========================
+   WIN
+========================= */
 
-/* WIN */
+function winGame(){
 
-
-function winGame() {
-
-
-    if (!gameRunning)
+    if(!gameRunning)
     return;
 
 
@@ -1090,29 +1570,30 @@ function winGame() {
     );
 
 
+    winSound();
+
+
     resultTitle.innerHTML =
-    "You Saved The Turtle! 🎉🐢";
+    "YOU SAVED THE TURTLE! 🎉🐢";
 
 
     resultText.innerHTML =
-    "Great job! This is only a small challenge. The full game has over 100 levels, traps, bees and unique turtle skins!";
+    "Amazing! You survived the angry bees. Think you can beat over 100 challenging levels?";
 
 
     resultScreen.style.display =
     "flex";
 
-
 }
 
 
+/* =========================
+   LOSE
+========================= */
 
-/* LOSE */
+function loseGame(){
 
-
-function loseGame() {
-
-
-    if (!gameRunning)
+    if(!gameRunning)
     return;
 
 
@@ -1130,34 +1611,31 @@ function loseGame() {
     );
 
 
+    loseSound();
+
+
     resultTitle.innerHTML =
-    "Oh No! 🐝";
+    "OH NO! 🐝";
 
 
     resultText.innerHTML =
-    "The bee reached the turtle! Try again, or discover the full game with over 100 challenging levels.";
+    "The bees reached the turtle! Try again or play the full game with over 100 levels.";
 
 
     resultScreen.style.display =
     "flex";
 
-
 }
 
 
+/* =========================
+   RESTART
+========================= */
 
-/* RESTART */
-
-
-function restartGame() {
-
+function restartGame(){
 
     resultScreen.style.display =
     "none";
-
-
-    startScreen.style.display =
-    "flex";
 
 
     gameRunning =
@@ -1182,23 +1660,38 @@ function restartGame() {
     );
 
 
-    bee.style.left =
-    "40px";
+    linePoints =
+    [];
 
 
-    bee.style.top =
-    "45px";
+    lineDrawn =
+    false;
+
+
+    bees.forEach(
+    bee=>bee.element.remove()
+    );
+
+
+    bees = [];
+
+
+    startScreen.style.display =
+    "flex";
 
 
     timerElement.innerHTML =
     "30";
 
 
+    beeCounter.innerHTML =
+    "8";
+
+
 }
 
 
 </script>
-
 
 </body>
 
