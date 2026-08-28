@@ -7,121 +7,1198 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download Save The Sleeping Turtle</title>
+<title>Play Save The Sleeping Turtle</title>
 
 <meta name="description"
-content="Download Save The Sleeping Turtle on Google Play. Protect, draw and save the sleeping turtles.">
-
-<meta name="robots"
-content="index, follow">
-
-<link rel="canonical"
-href="https://kitcho85.github.io/download.html">
-
-<meta http-equiv="refresh"
-content="2;url=https://play.google.com/store/apps/details?id=com.kitcho85.savethesleepingturtle">
+content="Play a mini challenge from Save The Sleeping Turtle. Protect the turtle from the angry bees!">
 
 <style>
 
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #083b4c, #146b73);
-    color: white;
-    text-align: center;
+    padding: 0;
 }
 
-.container {
-    max-width: 500px;
-    padding: 30px;
+body {
+    min-height: 100vh;
+    background: #10242b;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+
+.header {
+    text-align: center;
+    padding: 20px 15px 10px;
 }
 
 .logo {
-    width: 140px;
-    max-width: 80%;
-    margin-bottom: 20px;
+    max-width: 260px;
+    width: 80%;
+    height: auto;
 }
 
-h1 {
-    font-size: 32px;
+.header h1 {
+    font-size: 28px;
+    margin-top: 8px;
+}
+
+.header p {
+    margin-top: 8px;
+    font-size: 17px;
+    color: #d9f4ff;
+}
+
+
+/* GAME CONTAINER */
+
+.gameWrapper {
+    width: 100%;
+    max-width: 700px;
+    margin: 15px auto;
+    padding: 12px;
+}
+
+.gameBox {
+    position: relative;
+    width: 100%;
+    height: 500px;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.25)
+        ),
+        url("images/beach.png");
+
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    border: 4px solid rgba(255,255,255,0.25);
+
+    touch-action: none;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.5);
+}
+
+
+/* TURTLE */
+
+.turtle {
+    position: absolute;
+
+    width: 130px;
+
+    left: 50%;
+
+    bottom: 45px;
+
+    transform: translateX(-50%);
+
+    user-select: none;
+
+    pointer-events: none;
+
+    z-index: 3;
+
+    filter:
+        drop-shadow(
+            0 8px 5px rgba(0,0,0,0.4)
+        );
+}
+
+
+/* BEE */
+
+.bee {
+    position: absolute;
+
+    width: 70px;
+
+    top: 45px;
+
+    left: 40px;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    z-index: 4;
+
+    filter:
+        drop-shadow(
+            0 5px 4px rgba(0,0,0,0.4)
+        );
+}
+
+
+/* DRAWING CANVAS */
+
+#drawCanvas {
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: 10;
+
+    cursor: crosshair;
+
+}
+
+
+/* TOP UI */
+
+.gameUI {
+
+    position: absolute;
+
+    top: 15px;
+
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 0 18px;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+}
+
+.timer {
+
+    background: rgba(0,0,0,0.55);
+
+    padding: 9px 15px;
+
+    border-radius: 20px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+}
+
+.message {
+
+    position: absolute;
+
+    top: 70px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    color: white;
+
+    text-shadow:
+        2px 2px 4px rgba(0,0,0,0.8);
+
+    z-index: 20;
+
+    pointer-events: none;
+
+}
+
+
+/* START SCREEN */
+
+.startScreen {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,0.45);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 30;
+
+    text-align: center;
+
+    padding: 25px;
+
+}
+
+.startScreen h2 {
+
+    font-size: 34px;
+
     margin-bottom: 15px;
+
+    text-shadow:
+        2px 3px 5px rgba(0,0,0,0.7);
+
 }
 
-p {
+.startScreen p {
+
     font-size: 18px;
-    line-height: 1.6;
-    opacity: 0.9;
+
+    max-width: 450px;
+
+    line-height: 1.5;
+
 }
 
 .playButton {
-    display: inline-block;
+
     margin-top: 25px;
-    padding: 18px 30px;
-    background: #34b86f;
-    color: white;
-    text-decoration: none;
-    border-radius: 15px;
-    font-size: 20px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    padding: 16px 45px;
+
+    font-size: 22px;
+
     font-weight: bold;
+
+    color: white;
+
+    background: #31b96f;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 0 #16834a;
+
+    transition: 0.15s;
+
 }
 
-.playButton:hover {
-    transform: scale(1.03);
+.playButton:active {
+
+    transform: translateY(4px);
+
+    box-shadow:
+        0 2px 0 #16834a;
+
 }
 
-.small {
+
+/* RESULT SCREEN */
+
+.resultScreen {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,0.72);
+
+    display: none;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 40;
+
+    text-align: center;
+
+    padding: 25px;
+
+}
+
+.resultScreen h2 {
+
+    font-size: 34px;
+
+    margin-bottom: 15px;
+
+}
+
+.resultScreen p {
+
+    font-size: 18px;
+
+    line-height: 1.5;
+
+}
+
+.downloadButton {
+
+    display: inline-block;
+
+    margin-top: 25px;
+
+    padding: 17px 35px;
+
+    background: #35c56f;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    border-radius: 50px;
+
+    box-shadow:
+        0 6px 0 #167b43;
+
+}
+
+.downloadButton:active {
+
+    transform: translateY(4px);
+
+    box-shadow:
+        0 2px 0 #167b43;
+
+}
+
+.retryButton {
+
     margin-top: 20px;
-    font-size: 14px;
-    opacity: 0.7;
+
+    background: transparent;
+
+    border: 2px solid white;
+
+    color: white;
+
+    border-radius: 30px;
+
+    padding: 10px 25px;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .header h1 {
+        font-size: 23px;
+    }
+
+    .header p {
+        font-size: 15px;
+    }
+
+    .gameWrapper {
+        padding: 7px;
+    }
+
+    .gameBox {
+        height: 520px;
+        border-radius: 15px;
+    }
+
+    .turtle {
+        width: 110px;
+    }
+
+    .bee {
+        width: 58px;
+    }
+
+    .message {
+        font-size: 17px;
+        top: 75px;
+    }
+
+    .startScreen h2 {
+        font-size: 28px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<div class="container">
 
-<img
-src="images/logo.png"
-class="logo"
-alt="Save The Sleeping Turtle Logo">
+<div class="header">
 
-<h1>Save The Sleeping Turtle</h1>
+    <img
+    src="images/logo.png"
+    class="logo"
+    alt="Save The Sleeping Turtle">
 
-<p>
-You are being redirected to Google Play...
-</p>
+    <h1>Save The Sleeping Turtle</h1>
 
-<a
-href="https://play.google.com/store/apps/details?id=com.kitcho85.savethesleepingturtle"
-class="playButton">
-
-Download On Google Play
-
-</a>
-
-<p class="small">
-If Google Play does not open automatically, tap the button above.
-</p>
+    <p>Draw a line. Protect the turtle. Survive!</p>
 
 </div>
 
+
+
+<div class="gameWrapper">
+
+
+<div class="gameBox" id="gameBox">
+
+
+    <img
+    src="images/normal.png"
+    class="turtle"
+    id="turtle">
+
+
+    <img
+    src="images/bee.png"
+    class="bee"
+    id="bee">
+
+
+    <canvas id="drawCanvas"></canvas>
+
+
+    <div class="gameUI">
+
+        <div class="timer" id="timer">
+
+            30
+
+        </div>
+
+    </div>
+
+
+    <div
+    class="message"
+    id="message">
+
+        Draw ONE line to protect the turtle!
+
+    </div>
+
+
+
+    <!-- START SCREEN -->
+
+    <div
+    class="startScreen"
+    id="startScreen">
+
+        <h2>Protect The Turtle! 🐢</h2>
+
+        <p>
+
+            Draw a protective line before the angry bee reaches
+            the sleeping turtle.
+
+        </p>
+
+
+        <button
+        class="playButton"
+        onclick="startGame()">
+
+            PLAY NOW
+
+        </button>
+
+    </div>
+
+
+
+    <!-- RESULT SCREEN -->
+
+    <div
+    class="resultScreen"
+    id="resultScreen">
+
+        <h2 id="resultTitle">
+
+            Great Job! 🎉
+
+        </h2>
+
+
+        <p
+        id="resultText">
+
+        </p>
+
+
+        <a
+
+        href="https://play.google.com/store/apps/details?id=com.kitcho85.savethesleepingturtle"
+
+        class="downloadButton"
+
+        target="_blank">
+
+            DOWNLOAD FULL GAME
+
+        </a>
+
+
+        <button
+        class="retryButton"
+        onclick="restartGame()">
+
+            PLAY AGAIN
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+
 <script>
 
-setTimeout(function () {
 
-window.location.href =
-"https://play.google.com/store/apps/details?id=com.kitcho85.savethesleepingturtle";
+const canvas =
+document.getElementById("drawCanvas");
 
-}, 2000);
+
+const ctx =
+canvas.getContext("2d");
+
+
+const gameBox =
+document.getElementById("gameBox");
+
+
+const bee =
+document.getElementById("bee");
+
+
+const turtle =
+document.getElementById("turtle");
+
+
+const timerElement =
+document.getElementById("timer");
+
+
+const startScreen =
+document.getElementById("startScreen");
+
+
+const resultScreen =
+document.getElementById("resultScreen");
+
+
+const resultTitle =
+document.getElementById("resultTitle");
+
+
+const resultText =
+document.getElementById("resultText");
+
+
+const message =
+document.getElementById("message");
+
+
+let drawing = false;
+
+let lineDrawn = false;
+
+let gameRunning = false;
+
+let beeX = 40;
+
+let beeY = 45;
+
+let beeSpeed = 0;
+
+let timer = 30;
+
+let timerInterval;
+
+let animationFrame;
+
+
+
+function resizeCanvas() {
+
+    canvas.width =
+    gameBox.clientWidth;
+
+    canvas.height =
+    gameBox.clientHeight;
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+"resize",
+resizeCanvas
+);
+
+
+
+/* GET POSITION */
+
+
+function getPosition(e) {
+
+    const rect =
+    canvas.getBoundingClientRect();
+
+
+    let clientX;
+
+    let clientY;
+
+
+    if (e.touches) {
+
+        clientX =
+        e.touches[0].clientX;
+
+        clientY =
+        e.touches[0].clientY;
+
+    }
+
+    else {
+
+        clientX =
+        e.clientX;
+
+        clientY =
+        e.clientY;
+
+    }
+
+
+    return {
+
+        x:
+        clientX - rect.left,
+
+        y:
+        clientY - rect.top
+
+    };
+
+}
+
+
+
+/* START DRAW */
+
+
+function startDraw(e) {
+
+    if (!gameRunning)
+    return;
+
+
+    if (lineDrawn)
+    return;
+
+
+    e.preventDefault();
+
+
+    drawing = true;
+
+
+    const pos =
+    getPosition(e);
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        pos.x,
+        pos.y
+    );
+
+}
+
+
+
+/* DRAW */
+
+
+function draw(e) {
+
+    if (!drawing)
+    return;
+
+
+    e.preventDefault();
+
+
+    const pos =
+    getPosition(e);
+
+
+    ctx.lineTo(
+        pos.x,
+        pos.y
+    );
+
+
+    ctx.strokeStyle =
+    "#ffffff";
+
+
+    ctx.lineWidth =
+    10;
+
+
+    ctx.lineCap =
+    "round";
+
+
+    ctx.lineJoin =
+    "round";
+
+
+    ctx.shadowColor =
+    "rgba(0,0,0,0.5)";
+
+
+    ctx.shadowBlur =
+    5;
+
+
+    ctx.stroke();
+
+
+}
+
+
+
+/* STOP DRAW */
+
+
+function stopDraw() {
+
+    if (!drawing)
+    return;
+
+
+    drawing = false;
+
+
+    lineDrawn = true;
+
+
+    message.innerHTML =
+    "Protect the turtle! Survive for 30 seconds!";
+
+
+}
+
+
+
+/* MOUSE EVENTS */
+
+
+canvas.addEventListener(
+"mousedown",
+startDraw
+);
+
+
+canvas.addEventListener(
+"mousemove",
+draw
+);
+
+
+window.addEventListener(
+"mouseup",
+stopDraw
+);
+
+
+
+/* TOUCH EVENTS */
+
+
+canvas.addEventListener(
+"touchstart",
+startDraw,
+{ passive:false }
+);
+
+
+canvas.addEventListener(
+"touchmove",
+draw,
+{ passive:false }
+);
+
+
+canvas.addEventListener(
+"touchend",
+stopDraw
+);
+
+
+
+/* START GAME */
+
+
+function startGame() {
+
+
+    startScreen.style.display =
+    "none";
+
+
+    gameRunning =
+    true;
+
+
+    lineDrawn =
+    false;
+
+
+    timer =
+    30;
+
+
+    beeX =
+    40;
+
+
+    beeY =
+    45;
+
+
+    beeSpeed =
+    0.35;
+
+
+    timerElement.innerHTML =
+    timer;
+
+
+    message.innerHTML =
+    "Draw ONE line to protect the turtle!";
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    timerInterval =
+    setInterval(
+    function() {
+
+
+        timer--;
+
+
+        timerElement.innerHTML =
+        timer;
+
+
+        if (timer <= 0) {
+
+
+            winGame();
+
+
+        }
+
+
+    },
+    1000
+    );
+
+
+    moveBee();
+
+
+}
+
+
+
+/* BEE MOVEMENT */
+
+
+function moveBee() {
+
+
+    if (!gameRunning)
+    return;
+
+
+    const turtleRect =
+    turtle.getBoundingClientRect();
+
+
+    const gameRect =
+    gameBox.getBoundingClientRect();
+
+
+    const turtleX =
+    turtle.offsetLeft +
+    turtle.offsetWidth / 2;
+
+
+    const turtleY =
+    turtle.offsetTop +
+    turtle.offsetHeight / 2;
+
+
+    beeX +=
+    (turtleX - beeX) *
+    beeSpeed *
+    0.02;
+
+
+    beeY +=
+    (turtleY - beeY) *
+    beeSpeed *
+    0.02;
+
+
+    bee.style.left =
+    beeX + "px";
+
+
+    bee.style.top =
+    beeY + "px";
+
+
+    const dx =
+    turtleX - beeX;
+
+
+    const dy =
+    turtleY - beeY;
+
+
+    const distance =
+    Math.sqrt(
+        dx * dx +
+        dy * dy
+    );
+
+
+    if (
+        distance < 65
+    ) {
+
+
+        loseGame();
+
+
+        return;
+
+
+    }
+
+
+    animationFrame =
+    requestAnimationFrame(
+        moveBee
+    );
+
+
+}
+
+
+
+/* WIN */
+
+
+function winGame() {
+
+
+    if (!gameRunning)
+    return;
+
+
+    gameRunning =
+    false;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    cancelAnimationFrame(
+        animationFrame
+    );
+
+
+    resultTitle.innerHTML =
+    "You Saved The Turtle! 🎉🐢";
+
+
+    resultText.innerHTML =
+    "Great job! This is only a small challenge. The full game has over 100 levels, traps, bees and unique turtle skins!";
+
+
+    resultScreen.style.display =
+    "flex";
+
+
+}
+
+
+
+/* LOSE */
+
+
+function loseGame() {
+
+
+    if (!gameRunning)
+    return;
+
+
+    gameRunning =
+    false;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    cancelAnimationFrame(
+        animationFrame
+    );
+
+
+    resultTitle.innerHTML =
+    "Oh No! 🐝";
+
+
+    resultText.innerHTML =
+    "The bee reached the turtle! Try again, or discover the full game with over 100 challenging levels.";
+
+
+    resultScreen.style.display =
+    "flex";
+
+
+}
+
+
+
+/* RESTART */
+
+
+function restartGame() {
+
+
+    resultScreen.style.display =
+    "none";
+
+
+    startScreen.style.display =
+    "flex";
+
+
+    gameRunning =
+    false;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    cancelAnimationFrame(
+        animationFrame
+    );
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    bee.style.left =
+    "40px";
+
+
+    bee.style.top =
+    "45px";
+
+
+    timerElement.innerHTML =
+    "30";
+
+
+}
+
 
 </script>
+
 
 </body>
 
